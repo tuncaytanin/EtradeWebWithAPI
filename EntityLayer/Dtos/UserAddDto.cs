@@ -1,4 +1,5 @@
 ﻿using EntityLayer.Abstract;
+using System;
 
 namespace EntityLayer.Dtos
 {

@@ -1,4 +1,6 @@
-﻿namespace EntityLayer.Concrete
+﻿using System;
+
+namespace EntityLayer.Concrete
 {
     public class User : AuditableEntity
     {

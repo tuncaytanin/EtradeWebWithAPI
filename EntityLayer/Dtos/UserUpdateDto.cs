@@ -1,5 +1,6 @@
 ﻿using EntityLayer.Abstract;
 
+using System;
 namespace EntityLayer.Dtos
 {
     public class UserUpdateDto : IDto
