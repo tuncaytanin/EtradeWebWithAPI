@@ -1,3 +1,5 @@
+using BussinesLayer.Abstract;
+using BussinesLayer.Concrete;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete.Contexts;
 using DataAccessLayer.Concrete.EntityFrameWork;
@@ -35,7 +37,10 @@ namespace WebAPI
 
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer("Data Source=TANINPC;Initial Catalog=DbEtradeWebWithAPI;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", options => options.MigrationsAssembly("DataAccessLayer").MigrationsHistoryTable(HistoryRepository.DefaultTableName,"dbo")));
             services.AddControllers();
+
+            // servislerimizi buraya ekliyoruz
             services.AddTransient<IUserDal, UfUserDal>();
+            services.AddTransient<IUserService, UserService>();
             //services.AddTransient<IUserService, UserService>();
             services.AddSwaggerGen(c =>
             {
