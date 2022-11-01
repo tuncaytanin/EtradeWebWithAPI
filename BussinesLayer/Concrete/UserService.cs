@@ -64,20 +64,23 @@ namespace BussinesLayer.Concrete
         public async Task<UserDto> GetByIdAsync(int id)
         {
             var user = await _userDal.GetByIdAsync(id);
-
-            UserDto userDto = new UserDto()
+            if (user is not null)
             {
-                Adress = user.Adress,
-                DateOfBirth = user.DateOfBirth,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                Gender = user.Gender,
-                Id = user.Id,
-                LastName = user.LastName,
-                UserName = user.UserName
+                UserDto userDto = new UserDto()
+                {
+                    Adress = user.Adress,
+                    DateOfBirth = user.DateOfBirth,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    Gender = user.Gender,
+                    Id = user.Id,
+                    LastName = user.LastName,
+                    UserName = user.UserName
 
-            };
-            return userDto;
+                };
+                return userDto;
+            }
+            return null;
         }
 
         public async Task<IEnumerable<UserDetailDto>> GetListAsync()
