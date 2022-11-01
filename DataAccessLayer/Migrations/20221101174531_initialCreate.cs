@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class dbCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,7 @@ namespace DataAccessLayer.Migrations
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Adress = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     CreatedUserId = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 11, 1, 15, 33, 12, 243, DateTimeKind.Local).AddTicks(5925)),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 11, 1, 20, 45, 31, 442, DateTimeKind.Local).AddTicks(7114)),
                     UpdateUserId = table.Column<int>(type: "int", nullable: true),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -39,7 +39,7 @@ namespace DataAccessLayer.Migrations
                 schema: "dbo",
                 table: "Users",
                 columns: new[] { "Id", "Adress", "CreatedDate", "CreatedUserId", "DateOfBirth", "Email", "FirstName", "Gender", "LastName", "Password", "UpdateDate", "UpdateUserId", "FistName" },
-                values: new object[] { 1, "İstanbul", new DateTime(2022, 11, 1, 15, 33, 12, 251, DateTimeKind.Local).AddTicks(675), 1, new DateTime(1987, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tt@gmail.com", "Tuncay", true, "Tanin", "12345", null, null, "tt" });
+                values: new object[] { 1, "İstanbul", new DateTime(2022, 11, 1, 20, 45, 31, 450, DateTimeKind.Local).AddTicks(866), 1, new DateTime(1987, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tt@gmail.com", "Tuncay", true, "Tanin", "12345", null, null, "tt" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

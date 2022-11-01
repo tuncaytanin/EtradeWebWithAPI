@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221101123312_dbCreate")]
-    partial class dbCreate
+    [Migration("20221101174531_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 11, 1, 15, 33, 12, 243, DateTimeKind.Local).AddTicks(5925))
+                        .HasDefaultValue(new DateTime(2022, 11, 1, 20, 45, 31, 442, DateTimeKind.Local).AddTicks(7114))
                         .HasColumnName("CreatedDate");
 
                     b.Property<int>("CreatedUserId")
@@ -98,7 +98,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 1,
                             Adress = "İstanbul",
-                            CreatedDate = new DateTime(2022, 11, 1, 15, 33, 12, 251, DateTimeKind.Local).AddTicks(675),
+                            CreatedDate = new DateTime(2022, 11, 1, 20, 45, 31, 450, DateTimeKind.Local).AddTicks(866),
                             CreatedUserId = 1,
                             DateOfBirth = new DateTime(1987, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tt@gmail.com",
