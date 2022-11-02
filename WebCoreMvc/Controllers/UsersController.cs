@@ -1,5 +1,6 @@
 ﻿using EntityLayer.Concrete;
 using EntityLayer.Dtos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -86,6 +87,31 @@ namespace WebCoreMvc.Controllers
             if (result.IsSuccessStatusCode)
                 return RedirectToAction("Index");
             return View(result);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userDeleteDto = await _httpClient.GetFromJsonAsync<UserUpdateDto>(url + "users/GetById/" + id.ToString());
+
+            UserDeleteViewModel userDeleteViewModel = new UserDeleteViewModel()
+            {
+                UserUpdateDto = userDeleteDto
+            };
+            return View(userDeleteViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, UserDeleteViewModel userDeleteViewModel)
+        {
+
+            HttpResponseMessage responseMessage = await _httpClient.DeleteAsync(url + "users/delete/" + id.ToString());
+
+            if (responseMessage.IsSuccessStatusCode)
+                return RedirectToAction("Index");
+
+            return View(responseMessage);
         }
 
     }
