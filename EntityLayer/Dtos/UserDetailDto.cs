@@ -1,5 +1,6 @@
 ﻿using EntityLayer.Abstract;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace EntityLayer.Dtos
 {
@@ -13,6 +14,8 @@ namespace EntityLayer.Dtos
         public string LastName { get; set; }
 
         public string Gender { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
         public string Email { get; set; }
         public string Adress { get; set; }
