@@ -1,9 +1,7 @@
 ﻿using EntityLayer.Concrete;
 using EntityLayer.Dtos;
-using EntityLayer.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace WebCoreMvc.ViewModels
 {
