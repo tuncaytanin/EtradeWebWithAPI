@@ -107,7 +107,7 @@ namespace BussinesLayer.Concrete
    
              var users = await _userDal.GetAsync(filter);
 
-             return new SuccessApiDataResponse<UserDto>(_mapper.Map<UserDto>(users), Messages.Listed);
+            return new SuccessApiDataResponse<UserDto>(_mapper.Map<UserDto>(users), Messages.Listed);
 
         }
 
@@ -184,7 +184,7 @@ namespace BussinesLayer.Concrete
             userWillUpdate.UpdateUserId = 1;
             userWillUpdate.CreatedDate = getUser.CreatedDate;
             userWillUpdate.CreatedUserId = getUser.CreatedUserId;
-
+      
             //User user = new User()
             //{
             //    UserName = userUpdateDto.UserName,
