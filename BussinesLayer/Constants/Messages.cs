@@ -15,5 +15,8 @@ namespace BussinesLayer.Constants
 
         public const string NotListed = "Listelenmedi"; 
         public const string ErrorListed = "Listenirken Hata Oluştu"; 
+        public const string UserNotFound = "Kullanıcı Bulunamadı";
+        public const string SuccessLogin = "Kullanıcı Başarılı bir şekilde giriş yaptı";
+        public const string ErrorLogin = "Kullanıcı Login Yapamadı";
     }
 }
