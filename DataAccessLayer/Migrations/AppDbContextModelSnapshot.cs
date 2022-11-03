@@ -35,7 +35,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 11, 1, 20, 45, 31, 442, DateTimeKind.Local).AddTicks(7114))
+                        .HasDefaultValue(new DateTime(2022, 11, 3, 11, 47, 12, 70, DateTimeKind.Local).AddTicks(3207))
                         .HasColumnName("CreatedDate");
 
                     b.Property<int>("CreatedUserId")
@@ -55,12 +55,12 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("FirstName");
 
                     b.Property<bool>("Gender")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(true)
                         .HasColumnName("Gender");
 
                     b.Property<string>("LastName")
@@ -85,7 +85,7 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("FistName");
+                        .HasColumnName("UserName");
 
                     b.HasKey("Id");
 
@@ -96,7 +96,7 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 1,
                             Adress = "İstanbul",
-                            CreatedDate = new DateTime(2022, 11, 1, 20, 45, 31, 450, DateTimeKind.Local).AddTicks(866),
+                            CreatedDate = new DateTime(2022, 11, 3, 11, 47, 12, 77, DateTimeKind.Local).AddTicks(9347),
                             CreatedUserId = 1,
                             DateOfBirth = new DateTime(1987, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tt@gmail.com",

@@ -20,8 +20,8 @@ namespace DataAccessLayer.Concrete.EntityFrameWork.Mapping
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(x => x.UserName)
-                .HasColumnName("FistName")
+            builder.Property(x => x.FirstName)
+                .HasColumnName("FirstName")
                 .HasMaxLength(50)
                 .IsRequired();
             builder.Property(x => x.LastName)
@@ -36,7 +36,6 @@ namespace DataAccessLayer.Concrete.EntityFrameWork.Mapping
 
             builder.Property(x => x.Gender)
                 .HasColumnName("Gender")
-                .HasDefaultValue(true)
                 .IsRequired();
 
             builder.Property(x => x.Email)
@@ -63,6 +62,18 @@ namespace DataAccessLayer.Concrete.EntityFrameWork.Mapping
                 .HasColumnName("CreatedDate")
                 .HasDefaultValue(DateTime.Now);
 
+            builder.Property(x => x.PhoneNumber)
+                .HasColumnName("PhoneNumber")
+                .HasColumnType("varchar")
+                .HasMaxLength(15);
+
+            builder.Property(x => x.Token)
+                .HasColumnType("varchar")
+                .HasMaxLength(250);
+
+            builder.Property(x => x.TokenExpireDate)
+                .HasColumnType("DateTime");
+
             builder.HasData(new User
             {
                 FirstName="Tuncay",
@@ -75,7 +86,9 @@ namespace DataAccessLayer.Concrete.EntityFrameWork.Mapping
                 CreatedUserId=1,
                 Email ="tt@gmail.com",
                 UserName="tt",
-                Id=1
+                Id=1,
+                PhoneNumber="+905324751252",
+                Token=String.Empty
 
             });
         }
