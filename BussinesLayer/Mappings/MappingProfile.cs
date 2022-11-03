@@ -18,6 +18,8 @@ namespace BussinesLayer.Mappings
 
             CreateMap<User, UserAddDto>().ReverseMap();
             CreateMap<User, UserUpdateDto>().ReverseMap();
+            CreateMap<User,UserDto>().ReverseMap();
+            CreateMap<UserDetailDto, UserDto>().ReverseMap();
         }
     }
 }
