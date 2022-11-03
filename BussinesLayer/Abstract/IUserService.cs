@@ -1,7 +1,11 @@
-﻿using EntityLayer.Dtos;
+﻿using Core.Utilities.Responses;
+using Core.Utilities.Security.Token;
+using EntityLayer.Concrete;
+using EntityLayer.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,14 +13,17 @@ namespace BussinesLayer.Abstract
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserDetailDto>> GetListAsync();
+        Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync(Expression<Func<User,bool>> filter = null);
 
-        Task<UserDto> GetByIdAsync(int id);
+        Task<ApiDataResponse<UserDto>> GetAsync(Expression<Func<User, bool>> filter);
+        Task<ApiDataResponse<UserDto>> GetByIdAsync(int id);
 
-        Task<UserDto> AddAsync(UserAddDto userAddDto);
+        Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto);
 
-        Task<UserUpdateDto> UpdateAsync(UserUpdateDto userUpdateDto);
-        Task<bool> DeleteAsync(int id);
+        Task<ApiDataResponse<UserUpdateDto>> UpdateAsync(UserUpdateDto userUpdateDto);
+        Task<ApiDataResponse<bool>> DeleteAsync(int id);
+
+        //Task<ApiDataResponse<AccessToken>> Authenticate(UserForLoginDto userForLoginDto);
     }
 
 }
