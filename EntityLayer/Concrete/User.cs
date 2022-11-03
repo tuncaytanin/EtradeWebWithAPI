@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Core.Entity.Abstract;
+using Core.Entity.Concrete;
+using System;
 
 namespace EntityLayer.Concrete
 {
-    public class User : AuditableEntity
+    public class User : AuditableEntity,IEntity
     {
         public string UserName { get; set; }    
         public string FirstName { get; set; }
@@ -14,6 +16,10 @@ namespace EntityLayer.Concrete
         public DateTime DateOfBirth { get; set; }
         public string Email { get; set; }
         public string Adress { get; set; }
+
+        public string PhoneNumber { get; set; }
+        public string Token { get; set; }
+        public DateTime? TokenExpireDate { get; set; }
 
     }
 }
