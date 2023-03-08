@@ -1,7 +1,7 @@
 ﻿using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using EntityLayer.Concrete;
-using EntityLayer.Dtos;
+using EntityLayer.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -6,12 +6,12 @@
 
   <ItemGroup>
     <Folder Include="DataAccess\EntityFrameWork\" />
-    <Folder Include="Helpers\JWT\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
 </Project>

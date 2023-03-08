@@ -1,5 +1,5 @@
 ﻿using EntityLayer.Concrete;
-using EntityLayer.Dtos;
+using EntityLayer.Dtos.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

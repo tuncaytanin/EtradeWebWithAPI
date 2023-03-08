@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EntityLayer.Concrete;
-using EntityLayer.Dtos;
+using EntityLayer.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

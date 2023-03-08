@@ -1,5 +1,7 @@
 ﻿using Core.Utilities.Responses;
 using EntityLayer.Dtos;
+using EntityLayer.Dtos.Auth;
+using EntityLayer.Dtos.User;
 using System.Threading.Tasks;
 
 namespace BussinesLayer.Abstract

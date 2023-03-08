@@ -1,6 +1,5 @@
 ﻿using BussinesLayer.Abstract;
 using DataAccessLayer.Abstract;
-using EntityLayer.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +16,7 @@ using Core.Utilities.Responses;
 using BussinesLayer.Constants;
 using AutoMapper;
 using System.Linq.Expressions;
+using EntityLayer.Dtos.User;
 
 namespace BussinesLayer.Concrete
 {

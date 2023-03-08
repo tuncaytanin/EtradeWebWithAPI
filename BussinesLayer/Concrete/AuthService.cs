@@ -7,6 +7,8 @@ using BussinesLayer.Constants;
 using AutoMapper;
 using System;
 using EntityLayer.Concrete;
+using EntityLayer.Dtos.Auth;
+using EntityLayer.Dtos.User;
 
 namespace BussinesLayer.Concrete
 {
