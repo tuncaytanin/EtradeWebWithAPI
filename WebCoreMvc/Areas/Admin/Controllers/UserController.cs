@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using WebCoreMvc.ApiServices.Interfaces;
 
@@ -21,6 +22,7 @@ namespace WebCoreMvc.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            return BadRequest();
             return View( await _userApiService.GetListAsync());
         }
     }

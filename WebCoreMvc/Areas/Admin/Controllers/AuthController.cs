@@ -46,7 +46,7 @@ namespace WebCoreMvc.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("","Kullanıcı Adı veya Şifre Hatalı");
             }
-            return View(loginDto);
+            return View("Index",loginDto);
         }
     }
 }

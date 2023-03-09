@@ -1,4 +1,6 @@
-﻿using EntityLayer.Dtos.User;
+﻿using Core.Utilities.Responses;
+using EntityLayer.Concrete;
+using EntityLayer.Dtos.User;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

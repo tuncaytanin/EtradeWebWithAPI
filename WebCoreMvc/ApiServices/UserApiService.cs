@@ -1,4 +1,5 @@
 ﻿using Core.Utilities.Responses;
+using EntityLayer.Concrete;
 using EntityLayer.Dtos.User;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace WebCoreMvc.ApiServices
         public async Task<List<UserDetailDto>> GetListAsync()
         {
             var response = await _httpClient.GetAsync("Users/Getlist");
+        
             if (!response.IsSuccessStatusCode)
                 return null;
             var responseSuccess = await response.Content.ReadFromJsonAsync<ApiDataResponse<IEnumerable<UserDetailDto>>>();
@@ -28,5 +30,6 @@ namespace WebCoreMvc.ApiServices
             return responseSuccess.Data.ToList();
 
         }
+
     }
 }

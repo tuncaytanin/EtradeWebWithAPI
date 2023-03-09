@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebCoreMvc.ApiServices;
 using WebCoreMvc.ApiServices.Interfaces;
+using WebCoreMvc.Handlers;
 
 namespace WebCoreMvc
 {
@@ -29,6 +30,7 @@ namespace WebCoreMvc
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddSession();
+            services.AddScoped<AuthTokenHandler>();
 
             #region HttpClinet
             services.AddHttpClient<IAuthApiService, AuthApiService>(opt =>
@@ -36,7 +38,7 @@ namespace WebCoreMvc
             );
             services.AddHttpClient<IUserApiService, UserApiService>(opt =>
                 opt.BaseAddress = new Uri(Configuration["BaseUrl"])
-            );
+            ).AddHttpMessageHandler<AuthTokenHandler>();
             #endregion
             #region cookie
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
@@ -56,12 +58,11 @@ namespace WebCoreMvc
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
+
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseStatusCodePagesWithRedirects("/Admin/Error/MystatusCode?code={0}");
+            
             app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

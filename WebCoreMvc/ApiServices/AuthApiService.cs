@@ -1,6 +1,8 @@
 ﻿using Core.Utilities.Responses;
+using EntityLayer.Concrete;
 using EntityLayer.Dtos.Auth;
 using EntityLayer.Dtos.User;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -18,9 +20,10 @@ namespace WebCoreMvc.ApiServices
             _httpClient = httpClient;
         }
 
+
         public async Task<ApiDataResponse<UserDto>> LoginAsync(LoginDto loginDto)
         {
-            var response = await _httpClient.PostAsJsonAsync("Auth/Login",
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("Auths/Login",
                 loginDto);
             if (response.IsSuccessStatusCode)
             {

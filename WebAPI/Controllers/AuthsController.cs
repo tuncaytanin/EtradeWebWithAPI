@@ -14,9 +14,11 @@ namespace WebAPI.Controllers
     public class AuthsController : ControllerBase
     {
         IAuthService _authService;
-        public AuthsController(IAuthService authService)
+
+        public AuthsController(IAuthService authService )
         {
             _authService = authService;
+
         }
 
 
@@ -26,7 +28,7 @@ namespace WebAPI.Controllers
         {
             var result = await _authService.LoginAsync(loginDto);
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
             return Unauthorized();
 
 

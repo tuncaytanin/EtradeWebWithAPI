@@ -33,6 +33,7 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Giriş Bilgileri</p>
 
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <form asp-action="Login" asp-controller="Auth" method="post">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Kullanıcı Adınızı Giriniz" asp-for="UserName">

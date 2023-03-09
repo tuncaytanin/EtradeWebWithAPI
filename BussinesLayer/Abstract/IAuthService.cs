@@ -1,4 +1,5 @@
 ﻿using Core.Utilities.Responses;
+using EntityLayer.Concrete;
 using EntityLayer.Dtos;
 using EntityLayer.Dtos.Auth;
 using EntityLayer.Dtos.User;
@@ -8,6 +9,7 @@ namespace BussinesLayer.Abstract
 {
     public interface IAuthService
     {
-        Task<ApiDataResponse<UserDetailDto>> LoginAsync(LoginDto loginDto);
+        Task<ApiDataResponse<UserDto>> LoginAsync(LoginDto loginDto);
+
     }
 }
