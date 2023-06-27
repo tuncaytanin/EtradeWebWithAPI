@@ -1,11 +1,11 @@
 ﻿using Core.Utilities.Responses;
-using EntityLayer.Concrete;
-using EntityLayer.Dtos;
-using EntityLayer.Dtos.Auth;
-using EntityLayer.Dtos.User;
+using Entities.Concrete;
+using Entities.Dtos;
+using Entities.Dtos.Auth;
+using Entities.Dtos.User;
 using System.Threading.Tasks;
 
-namespace BussinesLayer.Abstract
+namespace Business.Abstract
 {
     public interface IAuthService
     {

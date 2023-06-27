@@ -10,11 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EntityLayer\EntityLayer.csproj" />
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
+    <ProjectReference Include="..\EntityLayer\Entities.csproj" />
   </ItemGroup>
 
 </Project>

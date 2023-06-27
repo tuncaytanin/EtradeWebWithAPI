@@ -1,8 +1,8 @@
-﻿using Core.Entity.Abstract;
-using EntityLayer.Abstract;
+﻿using Core.Entites;
+using Entities.Abstract;
 using System;
 
-namespace EntityLayer.Dtos.User
+namespace Entities.Dtos.User
 {
     public class UserAddDto : IDto
     {
@@ -11,7 +11,6 @@ namespace EntityLayer.Dtos.User
 
         public string LastName { get; set; }
         public string Password { get; set; }
-        public bool Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Email { get; set; }
         public string Adress { get; set; }

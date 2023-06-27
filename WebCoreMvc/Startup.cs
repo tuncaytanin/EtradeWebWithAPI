@@ -64,7 +64,6 @@ namespace WebCoreMvc
             app.UseStatusCodePagesWithRedirects("/Admin/Error/MystatusCode?code={0}");
             
             app.UseSession();
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
        
             app.UseRouting();

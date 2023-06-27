@@ -1,5 +1,5 @@
-﻿using EntityLayer.Concrete;
-using EntityLayer.Dtos.User;
+﻿using Entities.Concrete;
+using Entities.Dtos.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -50,7 +50,6 @@ namespace WebCoreMvc.Controllers
                 DateOfBirth = userAddViewModel.UserAddDto.DateOfBirth,
                 Email = userAddViewModel.UserAddDto.Email,
                 FirstName = userAddViewModel.UserAddDto.FirstName,
-                Gender = userAddViewModel.UserAddDto.Gender,
                 LastName = userAddViewModel.UserAddDto.LastName,
                 Password = userAddViewModel.UserAddDto.Password,
                 UserName = userAddViewModel.UserAddDto.UserName

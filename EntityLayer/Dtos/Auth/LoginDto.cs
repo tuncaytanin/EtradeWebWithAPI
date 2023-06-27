@@ -1,6 +1,6 @@
-﻿using Core.Entity.Abstract;
+﻿using Core.Entites;
 
-namespace EntityLayer.Dtos.Auth
+namespace Entities.Dtos.Auth
 {
     public class LoginDto : IDto
     {

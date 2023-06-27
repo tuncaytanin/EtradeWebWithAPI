@@ -1,4 +1,4 @@
-﻿using EntityLayer.Dtos.User;
+﻿using Entities.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,7 +47,6 @@ namespace WebAPIWithWindowsForm
                     Adress = txtAdress.Text,
                     DateOfBirth = dtpDateOfBirth.Value,
                     Email = txtEmail.Text,
-                    Gender = cboxGender.Text == "Erkek" ? true : false,
                     LastName = txtLastName.Text,
                     Password = txtPassword.Text,
                     UserName = txtUserName.Text

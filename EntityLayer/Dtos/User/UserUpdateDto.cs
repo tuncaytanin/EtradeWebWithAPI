@@ -1,10 +1,10 @@
-﻿using Core.Entity.Abstract;
-using EntityLayer.Abstract;
+﻿using Core.Entites;
+using Entities.Abstract;
 
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EntityLayer.Dtos.User
+namespace Entities.Dtos.User
 {
     public class UserUpdateDto : IDto
     {

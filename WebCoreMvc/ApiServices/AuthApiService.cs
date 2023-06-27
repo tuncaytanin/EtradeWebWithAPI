@@ -1,7 +1,7 @@
 ﻿using Core.Utilities.Responses;
-using EntityLayer.Concrete;
-using EntityLayer.Dtos.Auth;
-using EntityLayer.Dtos.User;
+using Entities.Concrete;
+using Entities.Dtos.Auth;
+using Entities.Dtos.User;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Net.Http;

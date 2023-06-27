@@ -1,16 +1,21 @@
-﻿using BussinesLayer.Abstract;
-using EntityLayer.Dtos;
+﻿using Business.Abstract;
+using Entities.Dtos;
 using System.Threading.Tasks;
 using Core.Utilities.Security.Token;
 using Core.Utilities.Responses;
-using BussinesLayer.Constants;
+using Business.Constants;
 using AutoMapper;
 using System;
-using EntityLayer.Concrete;
-using EntityLayer.Dtos.Auth;
-using EntityLayer.Dtos.User;
+using Entities.Concrete;
+using Entities.Dtos.Auth;
+using Entities.Dtos.User;
+using Core.Aspects;
+using Business.Validations.FluentValidation;
+using Core.Aspects.Autofac;
+using Core.Entites.Concrete;
+using Core.Utilities.Security.Hash.Sha512;
 
-namespace BussinesLayer.Concrete
+namespace Business.Concrete
 {
     public class AuthService : IAuthService
     {
@@ -24,12 +29,16 @@ namespace BussinesLayer.Concrete
             _userService = userService;
         }
 
+
+        [ValidationAspect(typeof(LoginDtoValidator))]
         public async Task<ApiDataResponse<UserDto>> LoginAsync(LoginDto loginDto)
         {
-            var user = await _userService.GetAsync(x => x.UserName == loginDto.UserName && x.Password == loginDto.Password);
+            var user = await _userService.GetAsync(x => x.UserName == loginDto.UserName);
 
             if (user.Data is  null)
                 return new ErrorApiDataResponse<UserDto>(null, Messages.UserNotFound);
+
+
             if (user.Data.TokenExpireDate == null || string.IsNullOrEmpty(user.Data.Token) )
             {
                 return await UpdateToken(user);

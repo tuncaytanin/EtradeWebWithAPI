@@ -1,25 +1,34 @@
 ﻿using AutoMapper;
-using EntityLayer.Concrete;
-using EntityLayer.Dtos.User;
+using Core.Entites.Concrete;
+using Entities.Concrete;
+using Entities.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinesLayer.Mappings
+namespace Business.Mappings
 {
-    public class MappingProfile:Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<UserDetailDto, User>();
             CreateMap<User, UserDetailDto>();
+            CreateMap<UserDetailDto, User>();
 
-            CreateMap<User, UserAddDto>().ReverseMap();
-            CreateMap<User, UserUpdateDto>().ReverseMap();
-            CreateMap<User,UserDto>().ReverseMap();
-            CreateMap<UserDetailDto, UserDto>().ReverseMap();
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
+
+            CreateMap<User, UserAddDto>();
+            CreateMap<UserAddDto, User>();
+
+            CreateMap<User, UserUpdateDto>();
+            CreateMap<UserUpdateDto, User>();
+
+            CreateMap<UserDto,UserUpdateDto>();
+            CreateMap<UserUpdateDto, UserDto>();
+            CreateMap<AppUser, UserUpdateDto>().ReverseMap();
         }
     }
 }

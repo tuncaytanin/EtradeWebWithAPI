@@ -1,12 +1,7 @@
-﻿using Core.Entity.Abstract;
-using EntityLayer.Abstract;
+﻿using Core.Entites;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EntityLayer.Dtos.User
+namespace Entities.Dtos.User
 {
     public class UserDto : IDto
     {

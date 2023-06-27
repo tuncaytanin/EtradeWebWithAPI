@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using BussinesLayer.Abstract;
-using BussinesLayer.Concrete;
-using BussinesLayer.Mappings;
+using Business.Abstract;
+using Business.Concrete;
+using Business.Mappings;
 using Core.Extensions;
 using Core.Utilities.Security.Token;
 using Core.Utilities.Security.Token.JWT;
-using DataAccessLayer.Abstract;
-using DataAccessLayer.Concrete.Contexts;
-using DataAccessLayer.Concrete.EntityFrameWork;
+using DataAccess.Abstract;
+using DataAccess.Concrete.Contexts;
+using DataAccess.Concrete.EntityFrameWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,10 +43,13 @@ namespace WebAPI
         {
 
 
-            services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer("Data Source=TANINPC;Initial Catalog=DbEtradeWebWithAPI;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", options => options.MigrationsAssembly("DataAccessLayer").MigrationsHistoryTable(HistoryRepository.DefaultTableName,"dbo")));
+            IServiceCollection serviceCollections= services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer("Data Source=TANINPC;Initial Catalog=DbEtradeWebWithAPI;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", options => options.MigrationsAssembly("DataAccess").MigrationsHistoryTable(HistoryRepository.DefaultTableName,"dbo")));
             services.AddControllers();
             services.AddCustomSwagger();
             services.AddCustomJwtToken(Configuration);
+
+            services.AddCustomHttpContextAccessor();
+            services.AddMemoryCache();
             
 
             //services.AddTransient<IUserService, UserService>();
@@ -61,12 +64,16 @@ namespace WebAPI
             var mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
             #endregion
-            #region Serivces
+
+
+            #region DI
             // servislerimizi buraya ekliyoruz
-            services.AddTransient<IUserDal, UfUserDal>();
+            /* Bunları AutofacModule içerisinden ekledik
+             services.AddTransient<IUserDal, EfUserDal>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITokenService, JwtTokenService>();
             services.AddTransient<IAuthService, AuthService>();
+            */
             #endregion  
         }
 
@@ -81,13 +88,11 @@ namespace WebAPI
 
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseStaticHttpContext();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

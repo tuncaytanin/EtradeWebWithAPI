@@ -1,9 +1,8 @@
-﻿using Core.Entity.Abstract;
-using EntityLayer.Abstract;
+﻿using Core.Entites;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EntityLayer.Dtos.User
+namespace Entities.Dtos.User
 {
     public class UserDetailDto : IDto
     {

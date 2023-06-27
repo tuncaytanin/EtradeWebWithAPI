@@ -1,5 +1,5 @@
-﻿using Core.Entity.Abstract;
-using EntityLayer.Abstract;
+﻿using Core.Entites;
+using Entities.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,10 +8,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Concrete
+namespace DataAccess.Concrete
 {
     public class EfBaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity>
-        where TEntity : class, IEntity, new()
+        where TEntity : class, new()
         where TDbContext : DbContext, new()
     {
 

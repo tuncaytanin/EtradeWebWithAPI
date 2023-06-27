@@ -22,7 +22,7 @@ namespace WebCoreMvc.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return BadRequest();
+           // return BadRequest();
             return View( await _userApiService.GetListAsync());
         }
     }

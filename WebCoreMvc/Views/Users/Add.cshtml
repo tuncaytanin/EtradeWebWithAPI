@@ -34,11 +34,7 @@
                 <span asp-validation-for="@Model.UserAddDto.Password" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                <label asp-for="@Model.UserAddDto.Gender">Cinsiyet </label>
-                <select class="form-control" asp-for="@Model.UserAddDto.Gender" asp-items="@(new SelectList(Model.Genders,"Id","GenderName"))"></select>
-                <span asp-validation-for="@Model.UserAddDto.Gender" class="text-danger"></span>
-                </div>
+
 
                 <div class="form-group">
                 <label asp-for="@Model.UserAddDto.DateOfBirth">Doğum Tarihiniz :  </label>

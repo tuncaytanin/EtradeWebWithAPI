@@ -23,6 +23,7 @@ namespace WebCoreMvc.Handlers
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            var name = _httpContextAccessor.HttpContext.User.Identity.Name;
             if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
                 string _token = _httpContextAccessor.HttpContext.Session.GetString("token");

@@ -1,6 +1,6 @@
 ﻿using Core.Utilities.Responses;
-using EntityLayer.Concrete;
-using EntityLayer.Dtos.User;
+using Entities.Concrete;
+using Entities.Dtos.User;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
