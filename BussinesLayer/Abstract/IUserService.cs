@@ -1,22 +1,30 @@
-﻿using EntityLayer.Dtos;
+﻿using Core.Entites.Concrete;
+using Core.Utilities.Responses;
+using Core.Utilities.Security.Token;
+using Entities.Concrete;
+using Entities.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinesLayer.Abstract
+namespace Business.Abstract
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserDetailDto>> GetListAsync();
+        Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync();
 
-        Task<UserDto> GetByIdAsync(int id);
+        Task<ApiDataResponse<UserDto>> GetAsync(Expression<Func<AppUser, bool>> filter);
+        Task<ApiDataResponse<UserDto>> GetByIdAsync(int id);
 
-        Task<UserDto> AddAsync(UserAddDto userAddDto);
+        Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto);
 
-        Task<UserUpdateDto> UpdateAsync(UserUpdateDto userUpdateDto);
-        Task<bool> DeleteAsync(int id);
+        Task<ApiDataResponse<UserUpdateDto>> UpdateAsync(UserUpdateDto userUpdateDto);
+        Task<ApiDataResponse<bool>> DeleteAsync(int id);
+
+        //Task<ApiDataResponse<AccessToken>> Authenticate(UserForLoginDto userForLoginDto);
     }
 
 }

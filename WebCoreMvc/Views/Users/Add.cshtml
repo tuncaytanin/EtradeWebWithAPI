@@ -1,0 +1,65 @@
+﻿@model WebCoreMvc.ViewModels.UserAddViewModes
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Kullanıcı Ekleme</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" method="post">
+            <div class="text-danger" asp-validation-summary="ModelOnly">           </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.UserAddDto.UserName">Kullanıcı Adı </label>
+                <input asp-for="@Model.UserAddDto.UserName" class="form-control" />
+                <span asp-validation-for="@Model.UserAddDto.UserName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                <label asp-for="@Model.UserAddDto.FirstName"> Adınız </label>
+                    <input asp-for="@Model.UserAddDto.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.UserAddDto.FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                <label asp-for="@Model.UserAddDto.LastName">Soyadınız </label>
+                <input asp-for="@Model.UserAddDto.LastName" class="form-control" />
+                <span asp-validation-for="@Model.UserAddDto.LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                <label asp-for="@Model.UserAddDto.Password"> Şifreniz </label>
+                <input asp-for="@Model.UserAddDto.Password" class="form-control" />
+                <span asp-validation-for="@Model.UserAddDto.Password" class="text-danger"></span>
+                </div>
+
+
+
+                <div class="form-group">
+                <label asp-for="@Model.UserAddDto.DateOfBirth">Doğum Tarihiniz :  </label>
+                <input asp-for="@Model.UserAddDto.DateOfBirth" class="form-control" type="date" />
+                <span asp-validation-for="@Model.UserAddDto.DateOfBirth" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                <label asp-for="@Model.UserAddDto.Email">Email Adresiniz </label>
+                <input asp-for="@Model.UserAddDto.Email" class="form-control" type="email" />
+                <span asp-validation-for="@Model.UserAddDto.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                <label asp-for="@Model.UserAddDto.Adress">Adresiniz </label>
+                <input asp-for="@Model.UserAddDto.Adress" class="form-control" type="text" />
+                <span asp-validation-for="@Model.UserAddDto.Adress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input  type="submit" value="Ekle" class="btn btn-primary"/>
+                </div>
+
+  
+        </form>
+    </div>
+
+</div>
+

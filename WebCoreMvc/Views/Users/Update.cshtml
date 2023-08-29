@@ -1,0 +1,75 @@
+﻿@model WebCoreMvc.ViewModels.UserUpdateViewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Kullanıcı Güncelleme</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update" method="post">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+            <div class="form-group">
+                <label asp-for="@Model.UserUpdateDto.Id">Kullanıcı Adı </label>
+                <input asp-for="@Model.UserUpdateDto.Id" class="form-control" type="hidden"/>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="@Model.UserUpdateDto.UserName">Kullanıcı Adı </label>
+                <input asp-for="@Model.UserUpdateDto.UserName" class="form-control" />
+                <span asp-validation-for="@Model.UserUpdateDto.UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.UserUpdateDto.FirstName"> Adınız </label>
+                <input asp-for="@Model.UserUpdateDto.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.UserUpdateDto.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.UserUpdateDto.LastName">Soyadınız </label>
+                <input asp-for="@Model.UserUpdateDto.LastName" class="form-control" />
+                <span asp-validation-for="@Model.UserUpdateDto.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.UserUpdateDto.Password"> Şifreniz </label>
+                <input asp-for="@Model.UserUpdateDto.Password" class="form-control" />
+                <span asp-validation-for="@Model.UserUpdateDto.Password" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="@Model.UserUpdateDto.DateOfBirth">Doğum Tarihiniz :  </label>
+                <input asp-for="@Model.UserUpdateDto.DateOfBirth" class="form-control" type="date" />
+                <span asp-validation-for="@Model.UserUpdateDto.DateOfBirth" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.UserUpdateDto.Email">Email Adresiniz </label>
+                <input asp-for="@Model.UserUpdateDto.Email" class="form-control" type="email" />
+                <span asp-validation-for="@Model.UserUpdateDto.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.UserUpdateDto.Adress">Adresiniz </label>
+                <input asp-for="@Model.UserUpdateDto.Adress" class="form-control" type="text" />
+                <span asp-validation-for="@Model.UserUpdateDto.Adress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Güncelle" class="btn btn-info" />
+                <a class="btn btn-primary mb-3" asp-action="Index">Listeye Geri Dön</a>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+

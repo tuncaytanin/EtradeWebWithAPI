@@ -1,156 +1,121 @@
-﻿using BussinesLayer.Abstract;
-using DataAccessLayer.Abstract;
-using EntityLayer.Dtos;
+﻿using Business.Abstract;
+using DataAccess.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Linq;
 using System.Threading.Tasks;
-using EntityLayer.Concrete;
-
-namespace BussinesLayer.Concrete
+using Entities.Concrete;
+using Microsoft.Extensions.Options;
+using Core.Utilities.Security.Token;
+using Core.Utilities.Responses;
+using Business.Constants;
+using AutoMapper;
+using System.Linq.Expressions;
+using Entities.Dtos.User;
+using Core.Aspects.Transaction;
+using Core.Aspects.Caching;
+using Core.Entites.Concrete;
+namespace Business.Concrete
 {
     public class UserService : IUserService
     {
+        #region Defination
+        private readonly AppSettings _appSettings;
+        private readonly IAppUserDal _userDal;
+        private readonly IMapper _mapper;
 
-        private readonly IUserDal _userDal;
+        #endregion
 
-        public UserService(IUserDal userDal)
+        #region Contructor
+        public UserService(IAppUserDal userDal,IOptions<AppSettings> appSettings, IMapper mapper)
         {
             _userDal = userDal;
+            _appSettings = appSettings.Value;
+            _mapper = mapper;
         }
-        public async Task<UserDto> AddAsync(UserAddDto userAddDto)
+        #endregion
+
+
+        [CacheAspect(10)]
+        public async Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync()
         {
-            User user = new User()
-            {
-                UserName = userAddDto.UserName,
-                Adress = userAddDto.Adress,
-                //ToDo => CreateDate ve CreateUserID düzenlenecek...
-                CreatedDate = DateTime.Now,
-                CreatedUserId = 1,
-                DateOfBirth = userAddDto.DateOfBirth,
-                Email = userAddDto.Email,
-                FirstName = userAddDto.FirstName,
-                Gender = userAddDto.Gender,
-                LastName = userAddDto.LastName,
-                Password = userAddDto.Password,
-                UpdateDate = DateTime.Now,
-                UpdateUserId = 1
 
-            };
 
-            user = await _userDal.AddAsync(user);
+            var responses = await _userDal.GetListAsync();
+            IEnumerable<UserDetailDto> userDetailDtos = _mapper.Map<IEnumerable<UserDetailDto>>(responses);
+            return new SuccessApiDataResponse<IEnumerable<UserDetailDto>>(userDetailDtos, Messages.Listed);
 
-            return new UserDto()
-            {
-                Adress = user.Adress,
-                DateOfBirth = user.DateOfBirth,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                Gender = user.Gender,
-                Id = user.Id,
-                LastName = user.LastName,
-                UserName = user.UserName
-            };
+
+
         }
 
-        public async Task<bool> DeleteAsync(int id)
+
+        [TransactionScopeAspect]
+        [CacheRemoveAspect("IUserService.GetListAsync")]
+        public async Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto)
         {
-            return await _userDal.DeleteByIdAsync(id);
+
+            var user = _mapper.Map<AppUser>(userAddDto);
+            //ToDo : CreatedDate and CreatedUserId düzenlenecek
+            user.CreatedDate = DateTime.Now;
+            user.CreatedUserId = 1;
+            var userAdd = await _userDal.AddAsync(user);
+            return new SuccessApiDataResponse<UserDto>(_mapper.Map<UserDto>(userAdd), Messages.Added);
+        }
+
+
+        public async Task<ApiDataResponse<bool>> DeleteAsync(int id)
+        {
+            var isDeleted = await _userDal.DeleteByIdAsync(id);
+                return new SuccessApiDataResponse<bool>(isDeleted, Messages.Deleten);
+            
+
 
         }
 
-        public async Task<UserDto> GetByIdAsync(int id)
+        public async Task<ApiDataResponse<UserDto>> GetAsync(Expression<Func<AppUser, bool>> filter)
+        {
+   
+             var users = await _userDal.GetAsync(filter);
+
+            return new SuccessApiDataResponse<UserDto>(_mapper.Map<UserDto>(users), Messages.Listed);
+
+        }
+
+        public async Task<ApiDataResponse<UserDto>> GetByIdAsync(int id)
         {
             var user = await _userDal.GetByIdAsync(id);
             if (user is not null)
             {
-                UserDto userDto = new UserDto()
-                {
-                    Adress = user.Adress,
-                    DateOfBirth = user.DateOfBirth,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    Gender = user.Gender,
-                    Id = user.Id,
-                    LastName = user.LastName,
-                    UserName = user.UserName
-
-                };
-                return userDto;
+                return new SuccessApiDataResponse<UserDto>(_mapper.Map<UserDto>(user),Messages.Listed);
             }
-            return null;
+            return new ErrorApiDataResponse<UserDto>(null,Messages.NotListed);
         }
 
-        public async Task<IEnumerable<UserDetailDto>> GetListAsync()
-        {
-            var responses = await _userDal.GetListAsync();
-            List<UserDetailDto> userDetailDtos = new List<UserDetailDto>();
-            foreach (var item in responses.ToList())
-            {
-                UserDetailDto userDetailDto = new UserDetailDto()
-                {
-                    Adress = item.Adress,
-                    DateOfBirth = item.DateOfBirth,
-                    Email = item.Email,
-                    FirstName = item.FirstName,
-                    Gender = item.Gender == true ? "Erkek" : "Kadın",
-                    LastName = item.LastName,
-                    UserName = item.UserName,
-                    Id = item.Id
-                };
 
 
-
-                userDetailDtos.Add(userDetailDto);
-
-
-            }
-            return userDetailDtos;
-        }
-
-        public async Task<UserUpdateDto> UpdateAsync(UserUpdateDto userUpdateDto)
+        public async Task<ApiDataResponse<UserUpdateDto>> UpdateAsync(UserUpdateDto userUpdateDto)
         {
 
             var getUser = await _userDal.GetByIdAsync(userUpdateDto.Id);
+            //ToDo : UpdateDate and UpdateUserId düzenlenecek
+            var userWillUpdate = _mapper.Map<AppUser>(userUpdateDto);
 
-            User user = new User()
-            {
-                UserName = userUpdateDto.UserName,
-                Adress = userUpdateDto.Adress,
-                //ToDo => CreateDate ve CreateUserID düzenlenecek...
-                CreatedDate = getUser.CreatedDate,
-                CreatedUserId = getUser.CreatedUserId,
-                DateOfBirth = userUpdateDto.DateOfBirth,
-                Email = userUpdateDto.Email,
-                FirstName = userUpdateDto.FirstName,
-                Gender = userUpdateDto.Gender,
-                LastName = userUpdateDto.LastName,
-                Password = userUpdateDto.Password,
-                UpdateDate = DateTime.Now,
-                UpdateUserId = 1,
-                Id= userUpdateDto.Id
+            userWillUpdate.UpdateDate = DateTime.Now;
+            userWillUpdate.UpdateUserId = 1;
+            userWillUpdate.CreatedDate = getUser.CreatedDate;
+            userWillUpdate.CreatedUserId = getUser.CreatedUserId;
 
-            };
 
-            user =  await _userDal.UpdateAsync(user);
 
-            UserUpdateDto userUpdate = new UserUpdateDto()
-            {
-                UserName = userUpdateDto.UserName,
-                Adress = userUpdateDto.Adress,
-                DateOfBirth = userUpdateDto.DateOfBirth,
-                Email = userUpdateDto.Email,
-                FirstName = userUpdateDto.FirstName,
-                Gender = userUpdateDto.Gender,
-                LastName = userUpdateDto.LastName,
-                Password = userUpdateDto.Password,
-                Id = userUpdateDto.Id
-            };
+      
+            
+           var userUpdated =  await _userDal.UpdateAsync(userWillUpdate);// User türünde değer dönüyor
 
-            return userUpdate;
+
+            return new SuccessApiDataResponse<UserUpdateDto>(_mapper.Map<UserUpdateDto>(userUpdated),Messages.Updated);
            
         }
+
+
     }
 }

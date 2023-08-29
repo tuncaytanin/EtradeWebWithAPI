@@ -1,8 +1,14 @@
-using BussinesLayer.Abstract;
-using BussinesLayer.Concrete;
-using DataAccessLayer.Abstract;
-using DataAccessLayer.Concrete.Contexts;
-using DataAccessLayer.Concrete.EntityFrameWork;
+﻿using AutoMapper;
+using Business.Abstract;
+using Business.Concrete;
+using Business.Mappings;
+using Core.Extensions;
+using Core.Utilities.Security.Token;
+using Core.Utilities.Security.Token.JWT;
+using DataAccess.Abstract;
+using DataAccess.Concrete.Contexts;
+using DataAccess.Concrete.EntityFrameWork;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,10 +19,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace WebAPI
@@ -35,17 +43,38 @@ namespace WebAPI
         {
 
 
-            services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer("Data Source=TANINPC;Initial Catalog=DbEtradeWebWithAPI;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", options => options.MigrationsAssembly("DataAccessLayer").MigrationsHistoryTable(HistoryRepository.DefaultTableName,"dbo")));
+            IServiceCollection serviceCollections= services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer("Data Source=TANINPC;Initial Catalog=DbEtradeWebWithAPI;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", options => options.MigrationsAssembly("DataAccess").MigrationsHistoryTable(HistoryRepository.DefaultTableName,"dbo")));
             services.AddControllers();
+            services.AddCustomSwagger();
+            services.AddCustomJwtToken(Configuration);
 
-            // servislerimizi buraya ekliyoruz
-            services.AddTransient<IUserDal, UfUserDal>();
-            services.AddTransient<IUserService, UserService>();
+            services.AddCustomHttpContextAccessor();
+            services.AddMemoryCache();
+            
+
             //services.AddTransient<IUserService, UserService>();
-            services.AddSwaggerGen(c =>
+
+            #region AutoMapper
+
+            var mapperConfig = new MapperConfiguration(mc =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+                mc.AddProfile(new MappingProfile());
             });
+
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            #endregion
+
+
+            #region DI
+            // servislerimizi buraya ekliyoruz
+            /* Bunları AutofacModule içerisinden ekledik
+             services.AddTransient<IUserDal, EfUserDal>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITokenService, JwtTokenService>();
+            services.AddTransient<IAuthService, AuthService>();
+            */
+            #endregion  
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,16 +83,16 @@ namespace WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
-            }
+                app.UseCustomSwagger();
+                
 
-            app.UseHttpsRedirection();
+            }
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseStaticHttpContext();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
