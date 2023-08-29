@@ -16,6 +16,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCoreMvc", "WebCoreMvc\WebCoreMvc.csproj", "{D84FA2A1-74F4-4073-BA2E-7F8E901B23C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{1F9BC837-397A-47A5-9639-BFF4E205883A}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
